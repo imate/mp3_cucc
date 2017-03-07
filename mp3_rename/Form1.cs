@@ -29,13 +29,17 @@ namespace mp3_rename
             openDialog.Title = "Open MP3 File";
             openDialog.Filter = "mp3 files|*.mp3";
             openDialog.Multiselect = true;
-            openDialog.InitialDirectory = @"C:\";
+            //openDialog.InitialDirectory = @"C:\sdf";
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            BL.Clear();
+            RefreshList();
         }
 
         private void btnAddFile_Click(object sender, EventArgs e)
         {
-            Stream myStream = null;
-
             if (openDialog.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -68,6 +72,13 @@ namespace mp3_rename
         private void lstFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
             string item = lstFiles.GetItemText(lstFiles.SelectedItem);
+            TagLib.Tag tag = BL.GetTag(item);
+            lblAlbum.Text = tag.Album;
+            lblArtist.Text = tag.FirstPerformer;
+            lblTitle.Text = tag.Title;
+            lblTrackNumber.Text = tag.Track.ToString();
+            lblYear.Text = tag.Year.ToString();
+
         }
     }
 }

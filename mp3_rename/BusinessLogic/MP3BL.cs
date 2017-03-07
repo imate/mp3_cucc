@@ -29,5 +29,10 @@ namespace mp3_rename.BusinessLogic
             Tag tag = tagFile.Tag;
             return tag;
         }
+
+        internal void Clear()
+        {
+            FileNames = new List<string>();
+        }
     }
 }
